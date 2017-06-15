@@ -1,0 +1,20 @@
+extends ../layout.pug
+
+block head
+    link(rel="stylesheet" type="text/css" href="/public/css/polls/new.sass")
+    script(src="/public/js/polls/new.js")
+    
+block content
+    form(method="POST" type="application/x-www-form-urlencoded")
+        .form-group
+            label(for="title") Title:
+            input.form-control(type="text" name="title" id="title" placeholder="Title" required="true")
+        .form-group#options
+            label Options:
+            input.form-control(type="text" name="option-0" placeholder="option1" id="0", required="true")
+            input.form-control(type="text" name="option-1" placeholder="option2" id="1", required="true")
+        button.btn.btn-default#submit(type="submit") Submit
+        .btn-group#options-btns
+            button.btn.btn-danger#remove #[i.fa.fa-minus]
+            button.btn.btn-success#add #[i.fa.fa-plus]
+        

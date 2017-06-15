@@ -1,0 +1,38 @@
+{
+  "name": "book_trading",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "7.8.0"
+  },
+  "author": "ColeTrammer",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "express-compile-sass": "^3.0.4",
+    "express-session": "^1.15.3",
+    "mongoose": "^4.10.2",
+    "node-sass": "^4.5.3",
+    "passport": "^0.3.2",
+    "passport-twitter": "^1.0.4",
+    "pug": "^2.0.0-rc.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ColeTrammer/book_trading.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ColeTrammer/book_trading/issues"
+  },
+  "homepage": "https://github.com/ColeTrammer/book_trading#readme",
+  "description": ""
+}
