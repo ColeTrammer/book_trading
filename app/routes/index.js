@@ -1,15 +1,12 @@
 "use strict";
 
-module.exports = (app, passport) => {
+const mw = require("../middlewares");
 
-    function isLoggedIn(req, res, next) {
-        if (req.isAuthenticated()) return next();
-        else res.redirect("/login");
-    }
+module.exports = (app, passport) => {
 
     app.get("/", (req, res) => {
         res.render("index");
-    })
+    });
 
     app.get("/login", (req, res) => {
         res.redirect("/auth/twitter");
@@ -30,4 +27,5 @@ module.exports = (app, passport) => {
     app.get("*", (req, res) => {
         res.redirect("/");
     });
+
 };
