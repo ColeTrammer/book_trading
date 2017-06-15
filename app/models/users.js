@@ -3,13 +3,11 @@
 const mongoose = require("mongoose");
 
 const User = new mongoose.Schema({
-    github: {
+    twitter: {
         id: String,
         displayName: String,
         username: String
-    },
-    ip: String,
-    polls: [mongoose.Schema.Types.ObjectId]
+    }
 });
 
 module.exports = mongoose.model("User", User);

@@ -1,8 +1,0 @@
-extends ../layout.pug
-    
-block content
-    div.list-group
-        each poll, i in polls
-            if poll
-                a.list-group-item(href=`/polls/${i}`)= poll.title
-    a(href="/polls/new") #[button.btn.btn-primary Make a poll]

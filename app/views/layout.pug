@@ -3,14 +3,14 @@ html(lang="en")
     head
         meta(charset="utf-8")
         meta(name="viewport" content="width=device-width, initial-scale=1")
-        title="Voting App"
+        title="Nightlife"
         link(rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
         link(rel="stylesheet" type="text/css" href="/public/css/main.sass")
-        script(src="https://use.fontawesome.com/48d49e4e42.js")
         script(src="https://code.jquery.com/jquery-3.2.1.min.js"
                integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
                crossorigin="anonymous")
         script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+        script(src="/public/js/main.js")
         block head
     body
         nav.navbar.navbar-inverse.navbar-fixed-top
@@ -20,17 +20,14 @@ html(lang="en")
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
-                    a.navbar-brand(href="/polls") Voting App
+                    a.navbar-brand(href="/") Book Trading
                 .collapse.navbar-collapse.nav-main#collapse
-                    ul.nav.navbar-nav
-                        li #[a(href="/polls") Polls]
                     ul.nav.navbar-nav.navbar-right
                         if user
-                            li #[p.navbar-text Welcome #{user.github.displayName}!]
+                            li #[p.navbar-text Welcome #{user.twitter.displayName}!]
                             li #[a(href="/logout") Log out]
                         else
-                            li #[a(href="/login") Login with GitHub]
-                                                   
+                            li #[a(href="/login") Login with Twitter]
         .container
             if successMessages
                 each m in successMessages
@@ -44,5 +41,5 @@ html(lang="en")
                         p= m
             block content
         footer.navbar-inverse.navbar-fixed-bottom.navbar.text-center
-            p Voting App by Cole Trammer<br>
-            a(href="https://github.com/ColeTrammer/voting_app") GitHub
+            p Book Trading app by Cole Trammer<br>
+            a(target="_blank" href="https://github.com/ColeTrammer/book_trading") GitHub
