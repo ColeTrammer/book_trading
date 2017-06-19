@@ -14,7 +14,7 @@ module.exports = {
             Book.find({}, (err, books) => {
                 let index = 0;
                 for (let i = 0; i < books.length; i++) {
-                    index = Math.max(index, book.index);
+                    index = Math.max(index, books[i].index);
                 }
                 req.body.index = index + 1;
                 Book.create(req.body, () => {
