@@ -1,0 +1,14 @@
+extends ../layout.pug
+
+block content
+    form(method="POST" type="application/x-www-form-urlencoded")
+        .form-group
+            label(for="title") Title:
+            input.form-control#title(type="text" name="title" required="true" placeholder="Title")
+        .form-group
+            label(for="cover") Cover Image URL(optional):
+            input.form-control#cover(type="url" placeholder="https://www.img.com" name="cover")
+        .form-group
+            label(for="description") Description:
+            textarea.form-control#description(name="description" required="true" rows="3" style="resize:vertical" placeholder="description")
+        button.btn.btn-primary(type="submit") Create

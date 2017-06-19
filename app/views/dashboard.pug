@@ -1,0 +1,8 @@
+extends layout.pug
+
+block content
+    if user.city && user.state && user.fullName
+        //stuff about trades
+    else
+        a(href="/dashboard/update") #[button.btn.btn-default Update your setting so you can trade books]<br>
+    a(href="/books") #[button.btn.btn-primary View all books]

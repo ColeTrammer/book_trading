@@ -8,7 +8,7 @@ const User = new mongoose.Schema({
         displayName: String,
         username: String
     },
-    fullname: String,
+    fullName: String,
     city: String,
     state: String
 });

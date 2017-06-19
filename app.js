@@ -21,7 +21,6 @@ mongoose.connect(process.env.MONGO_URI);
 app.set("views", path.join(__dirname, "app/views"));
 app.set("view engine", "pug");
 app.set("port", process.env.PORT);
-app.locals.APP_URL = process.env.APP_URL;
 
 app.use(sass({
     root: __dirname,

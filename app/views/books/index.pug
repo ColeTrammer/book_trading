@@ -1,0 +1,6 @@
+extends ../layout.pug
+
+block content
+    each book in books
+        a(href=`/books/${book.index}`) #[p= book.title]
+    a(href="/books/new") #[button.btn.btn-primary Add a book]

@@ -3,9 +3,10 @@
 const mongoose = require("mongoose");
 
 const Book = new mongoose.Schema({
-    name: String,
+    title: String,
     description: String,
-    cover: String
+    cover: String,
+    index: Number
 });
 
 module.exports = mongoose.model("Book", Book);

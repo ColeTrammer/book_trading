@@ -10,7 +10,7 @@ html(lang="en")
                integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
                crossorigin="anonymous")
         script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
-        script(src="/public/js/main.js")
+        //script(src="/public/js/main.js")
         block head
     body
         nav.navbar.navbar-inverse.navbar-fixed-top
@@ -24,7 +24,7 @@ html(lang="en")
                 .collapse.navbar-collapse.nav-main#collapse
                     ul.nav.navbar-nav.navbar-right
                         if user
-                            li #[p.navbar-text Welcome #{user.twitter.displayName}!]
+                            li #[p.navbar-text Welcome #[a#username(href="/dashboard") #{user.twitter.displayName}!]]
                             li #[a(href="/logout") Log out]
                         else
                             li #[a(href="/login") Login with Twitter]

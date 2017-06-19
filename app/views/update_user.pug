@@ -1,0 +1,14 @@
+extends layout.pug
+
+block content
+    form(method="POST" type="application/x-www-form-urlencoded")
+        .form-group
+            label(for="fullName") Full Name:
+            input.form-control#fullName(type="text" name="fullName" required="true" placeholder="Full Name")
+        .form-group
+            label(for="city") City:
+            input.form-control#city(type="text" placeholder="city" name="city" required="true")
+        .form-group
+            label(for="state") State:
+            input.form-control#dstate(type="text" name="state" required="true" placeholder="CA")
+        button.btn.btn-primary(type="submit") Update
