@@ -17,6 +17,7 @@ module.exports = (app, passport) => {
     app.post("/books/:index/trade", mw.redirectTo, mw.forceLogIn, mw.parseForm, books.trade);
 
     app.get("/books/:index/trade_accept", mw.redirectTo, mw.forceLogIn, books.acceptTrade);
+    app.get("/books/:index/trade_decline", mw.redirectTo, mw.forceLogIn, books.declineTrade);
 
     app.get("/books/:index", books.show);
 

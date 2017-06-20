@@ -29,7 +29,7 @@ module.exports = {
         if (req.body && req.body.book) {
             Book.findOne({index: req.params.index}, (err, requestedBook) => {
                 Book.findOne({owner: req.user._id, title: req.body.book}, (err, proposedBook) => {
-                    if (/*requestedBook.owner.equals(req.user._id) || */requestedBook === proposedBook || requestedBook.trading || proposedBook.trading) {
+                    if (requestedBook.owner.equals(req.user._id) || requestedBook === proposedBook || requestedBook.trading || proposedBook.trading) {
                         req.flash("errorMessages", "Invalid trade");
                         return res.redirect("/books");
                     } else {
@@ -75,7 +75,7 @@ module.exports = {
             if (err || !book) return res.redirect("/books");
             let trade;
             for (let i = 0; i < req.user.trades.length; i++) {
-                if (req.user.trades[i].requested.equals(book._id) && req.user.trades[i].type === "recieving") {
+                if (req.user.trades[i].requested.equals(book._id) && req.user.trades[i].type === "recieving" && req.user.trades[i].status !== "declined") {
                     trade = req.user.trades[i];
                     break;
                 }
@@ -85,7 +85,7 @@ module.exports = {
                     User.findOne({_id: proposed.owner}, (err, user) => {
                         let trade_;//have two copies of trade for each user. too lazy to make it its own model
                         for (let i = 0; i < user.trades.length; i++) {
-                            if (user.trades[i].proposed.equals(proposed._id) && user.trades[i].type === "sent") {
+                            if (user.trades[i].proposed.equals(proposed._id) && user.trades[i].type === "sent" && user.trades[i].status !== "declined") {
                                 trade_ = user.trades[i];
                                 break;
                             }
@@ -93,14 +93,59 @@ module.exports = {
                         if (trade_) {
                             trade.status = "accepted";
                             trade_.status = "accepted";
-                            console.log(user);
-                            console.log(req.user);
                             user.markModified("trades");
                             user.save(() => {
                                 req.user.markModified("trades");
                                 req.user.save(() => {
                                     req.flash("successMessages", "Trade accepted");
                                     res.redirect("/dashboard");
+                                });
+                            });
+                        } else {
+                            return res.redirect("/books");
+                        }
+                    });
+                });
+            } else {
+                return res.redirect("/books");
+            }
+        });
+    },
+    declineTrade: (req, res) => {
+        Book.findOne({index: req.params.index}, (err, book) => {
+            if (err || !book) return res.redirect("/books");
+            let trade;
+            for (let i = 0; i < req.user.trades.length; i++) {
+                if (req.user.trades[i].requested.equals(book._id) && req.user.trades[i].type === "recieving" && req.user.trades[i].status !== "declined") {
+                    trade = req.user.trades[i];
+                    break;
+                }
+            }
+            if (trade) {
+                Book.findOne({_id: trade.proposed}, (err, proposed) => {
+                    User.findOne({_id: proposed.owner}, (err, user) => {
+                        let trade_;//have two copies of trade for each user. too lazy to make it its own model
+                        for (let i = 0; i < user.trades.length; i++) {
+                            if (user.trades[i].proposed.equals(proposed._id) && user.trades[i].type === "sent" && user.trades[i].status !== "declined") {
+                                trade_ = user.trades[i];
+                                break;
+                            }
+                        }
+                        if (trade_) {
+                            trade.status = "declined";
+                            trade_.status = "declined";
+                            user.markModified("trades");
+                            user.save(() => {
+                                req.user.markModified("trades");
+                                req.user.save(() => {
+                                    book.trading = false;
+                                    book.save(() => {
+                                        proposed.trading = false;
+                                        proposed.save(() => {
+                                            req.flash("successMessages", "Trade declinded");
+                                            res.redirect("/dashboard");
+                                        });
+                                    });
                                 });
                             });
                         } else {
@@ -122,8 +167,8 @@ module.exports = {
                 let tradable = false;
                 for (let i = 0; i < books.length; i++) {
                     if (books[i].index === +req.params.index) {
-                        //req.flash("errorMessages", "You can't trade a book with yourself.");
-                        //return res.redirect(`/books/${req.params.index}`);
+                        req.flash("errorMessages", "You can't trade a book with yourself.");
+                        return res.redirect(`/books/${req.params.index}`);
                     }
                     if (!books[i].trading)
                         tradable = true;
