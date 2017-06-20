@@ -1,8 +1,8 @@
 extends ../layout.pug
 
 block content
-    p= book.title
-    p= book.description
+    h1 Title: #{book.title}
+    h4 Description: #{book.description}
     img(src=book.cover)
     if !book.trading && user && !book.owner.equals(user._id)
         a(href=`/books/${book.index}/trade`) #[button.btn.btn-primary Propose a trade]
