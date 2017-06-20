@@ -6,7 +6,9 @@ const Book = new mongoose.Schema({
     title: String,
     description: String,
     cover: String,
-    index: Number
+    index: Number,
+    owner: mongoose.Schema.Types.ObjectId,
+    trading: Boolean
 });
 
 module.exports = mongoose.model("Book", Book);

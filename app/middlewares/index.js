@@ -8,8 +8,9 @@ module.exports = {
         else res.redirect("/login");
     },
     parseForm: bodyParser.urlencoded({extended: false}),
-    redirectTo: (path) => (req, res, next) => {
-        req.flash("redirect", path);
+    redirectTo: (req, res, next) => {
+        req.flash("redirect", req.originalUrl);
         next();
     }
+
 }

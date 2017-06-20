@@ -2,7 +2,23 @@ extends layout.pug
 
 block content
     if user.city && user.state && user.fullName
-        //stuff about trades
+        .row
+            .col-md-6
+                h1 Trades you are recieving:
+                each trade in trades.filter((trade) => trade.type === "recieving")
+                    if trade.status === "pending"
+                        p You have a recieved a trade from #{trade.proposedOwner.fullName} in #{trade.proposedOwner.city}, #{trade.proposedOwner.state} for your book #{trade.requested.title}. In return you'll be get #{trade.proposed.title}. #[a(href=`/books/${trade.requested.index}/trade_accept`) Accept]
+                    else if trade.status === "accepted"
+                        p= `You have accepted a trade from ${trade.proposedOwner.fullName} in ${trade.proposedOwner.city}, ${trade.proposedOwner.state} for your book ${trade.requested.title}. In return you'll be get ${trade.proposed.title}.` 
+            .col-md-6
+                h1 Trades you have sent:
+                each trade in trades.filter((trade) => trade.type === "sent")
+                    if trade.status === "pending"
+                        p= `You have a pending trade to ${trade.requestedOwner.fullName} in ${trade.requestedOwner.city}, ${trade.requestedOwner.state} for their book ${trade.requested.title}. In return you'll give them ${trade.proposed.title}.` 
+                    else if trade.status === "accepted"
+                        p= `Your trade to ${trade.requestedOwner.fullName} in ${trade.requestedOwner.city}, ${trade.requestedOwner.state} for their book ${trade.requested.title} has been accepted. In return you'll give them ${trade.proposed.title}.` 
+                    else if trade.status === "declinded"
+                        p= `Your trade to ${trade.requestedOwner.fullName} in ${trade.requestedOwner.city}, ${trade.requestedOwner.state} for their book ${trade.requested.title} has been declined.` 
     else
         a(href="/dashboard/update") #[button.btn.btn-default Update your setting so you can trade books]<br>
     a(href="/books") #[button.btn.btn-primary View all books]

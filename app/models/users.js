@@ -10,7 +10,8 @@ const User = new mongoose.Schema({
     },
     fullName: String,
     city: String,
-    state: String
+    state: String,
+    trades: { type: Array , default: [] }
 });
 
 module.exports = mongoose.model("User", User);
